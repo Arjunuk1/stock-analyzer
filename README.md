@@ -14,3 +14,16 @@ To perform real-time stock analysis using DSA algorithms.
 To apply file-based storage instead of a database.
 
 To demonstrate engineering-level backend system design.
+📊 Real-Life Use Case
+
+This project simulates:
+
+Trading analytics tools
+
+Financial dashboards
+
+Investment platforms
+
+Algorithmic trading systems
+
+It reflects how real stock analysis engines work.
