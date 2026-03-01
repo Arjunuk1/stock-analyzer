@@ -4,6 +4,8 @@ const path = require('path');
 const DataManager = require('./services/DataManager');
 const StockAnalyzer = require('./services/StockAnalyzer');
 
+const TrendDetector = require('./services/TrendDetector');
+
 const app = express();
 const PORT = 3000;
 
@@ -20,21 +22,6 @@ app.get('/api/stock', (req, res) => {
     const dataManager = new DataManager();
     const stockData = dataManager.readCSV();
     res.json(stockData);
-});
-
-// ✅ Analysis route (PUT IT HERE)
-app.get('/api/analysis', (req, res) => {
-    const dataManager = new DataManager();
-    const stockData = dataManager.readCSV();
-
-    const analyzer = new StockAnalyzer(stockData);
-
-    res.json({
-        highestPrice: analyzer.getHighestPrice(),
-        lowestPrice: analyzer.getLowestPrice(),
-        movingAverage: analyzer.getMovingAverage(5),
-        stockSpan: analyzer.getStockSpan()
-    });
 });
 
 // 🔎 Search by date
@@ -57,6 +44,22 @@ app.get('/api/search', (req, res) => {
     }
 
     res.json(result);
+});
+
+app.get('/api/analysis', (req, res) => {
+    const dataManager = new DataManager();
+    const stockData = dataManager.readCSV();
+
+    const analyzer = new StockAnalyzer(stockData);
+    const trendDetector = new TrendDetector(stockData);
+
+    res.json({
+        highestPrice: analyzer.getHighestPrice(),
+        lowestPrice: analyzer.getLowestPrice(),
+        movingAverage: analyzer.getMovingAverage(5),
+        stockSpan: analyzer.getStockSpan(),
+        trend: trendDetector.detectTrend(5)
+    });
 });
 
 app.listen(PORT, () => {
