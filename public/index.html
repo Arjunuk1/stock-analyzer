@@ -2,9 +2,21 @@
 <html>
 <head>
     <title>Stock Analyzer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🚀 Stock Analyzer Backend Running</h1>
-    <p>If you see this, server is working.</p>
+
+    <h1>📈 Stock Analyzer Dashboard</h1>
+
+    <button id="analyzeBtn">Analyze Stock</button>
+
+    <div id="result" class="card">
+        <p><strong>Highest Price:</strong> <span id="highest"></span></p>
+        <p><strong>Lowest Price:</strong> <span id="lowest"></span></p>
+        <p><strong>Trend:</strong> <span id="trend"></span></p>
+        <p><strong>5-Day Moving Average (Last Value):</strong> <span id="movingAvg"></span></p>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
