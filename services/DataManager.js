@@ -19,7 +19,7 @@ class DataManager {
             const [date, open, high, low, close, volume] = line.split(',');
 
             return {
-                date,
+                date: date.trim(),
                 open: parseFloat(open),
                 high: parseFloat(high),
                 low: parseFloat(low),
