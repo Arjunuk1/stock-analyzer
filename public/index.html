@@ -1,20 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Stock Analyzer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analyzer Dashboard 📈</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>📈 Real-Time Stock Analysis Dashboard</h1>
+                <p class="subtitle">Advanced Financial Analytics with DSA Algorithms</p>
+            </div>
+        </header>
 
-    <h1>📈 Stock Analyzer Dashboard</h1>
+        <!-- Main Dashboard -->
+        <div class="dashboard">
+            <!-- Quick Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3 id="highest-price">--</h3>
+                        <p>Highest Price</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📉</div>
+                    <div class="stat-content">
+                        <h3 id="lowest-price">--</h3>
+                        <p>Lowest Price</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-content">
+                        <h3 id="trend-display">--</h3>
+                        <p>Market Trend</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💹</div>
+                    <div class="stat-content">
+                        <h3 id="moving-avg-display">--</h3>
+                        <p>5-Day MA</p>
+                    </div>
+                </div>
+            </div>
 
-    <button id="analyzeBtn">Analyze Stock</button>
+            <!-- Feature Sections -->
+            <div class="features-grid">
+                <!-- Analysis Section -->
+                <div class="feature-card">
+                    <div class="card-header">
+                        <h2>🎯 Stock Analysis</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">Get comprehensive stock analysis using DSA algorithms</p>
+                        <button class="btn btn-primary" id="analyzeBtn">
+                            <span class="btn-text">Run Analysis</span>
+                            <span class="btn-icon">→</span>
+                        </button>
+                        <div id="analysis-result" class="result-box"></div>
+                    </div>
+                </div>
 
-    <div id="result" class="card">
-        <p><strong>Highest Price:</strong> <span id="highest"></span></p>
-        <p><strong>Lowest Price:</strong> <span id="lowest"></span></p>
-        <p><strong>Trend:</strong> <span id="trend"></span></p>
-        <p><strong>5-Day Moving Average (Last Value):</strong> <span id="movingAvg"></span></p>
+                <!-- Date Search Section -->
+                <div class="feature-card">
+                    <div class="card-header">
+                        <h2>🔍 Search by Date</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">Binary search implementation for efficient date lookup</p>
+                        <input type="date" id="dateInput" class="input-field" placeholder="Select date">
+                        <button class="btn btn-secondary" id="searchBtn">
+                            <span class="btn-text">Search</span>
+                            <span class="btn-icon">🔎</span>
+                        </button>
+                        <div id="search-result" class="result-box"></div>
+                    </div>
+                </div>
+
+                <!-- Stock Data Table -->
+                <div class="feature-card wide">
+                    <div class="card-header">
+                        <h2>📋 Historical Stock Data</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">View complete historical price records</p>
+                        <button class="btn btn-accent" id="loadDataBtn">
+                            <span class="btn-text">Load Data</span>
+                            <span class="btn-icon">⟳</span>
+                        </button>
+                        <div id="data-table" class="table-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with Node.js | DSA + Backend Engineering Project 🚀</p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
