@@ -29,7 +29,7 @@ class StockAnalyzer {
             }
 
             if (i >= windowSize - 1) {
-                result.push((sum / windowSize).toFixed(2));
+                result.push(sum / windowSize);
             }
         }
 

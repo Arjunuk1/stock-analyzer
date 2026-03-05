@@ -19,11 +19,11 @@ class TrendDetector {
         }
 
         if (increasing > decreasing) {
-            return "Bullish 📈";
+            return "Bullish";
         } else if (decreasing > increasing) {
-            return "Bearish 📉";
+            return "Bearish";
         } else {
-            return "Sideways ➖";
+            return "Sideways";
         }
     }
 }
