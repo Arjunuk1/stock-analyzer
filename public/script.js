@@ -15,16 +15,49 @@ analyzeBtn.addEventListener('click', async () => {
         }
         const data = await response.json();
         
+        // Calculate total growth
+        const totalGrowthPercent = ((data.highestPrice - data.lowestPrice) / data.lowestPrice) * 100;
+        
         // Update stat cards
         document.getElementById('highest-price').textContent = `$${data.highestPrice.toFixed(2)}`;
         document.getElementById('lowest-price').textContent = `$${data.lowestPrice.toFixed(2)}`;
         
-        const trendEmoji = data.trend === 'Bullish' ? '🟢' : data.trend === 'Bearish' ? '🔴' : '🟡';
-        document.getElementById('trend-display').textContent = `${trendEmoji} ${data.trend}`;
+        // Dynamic trend coloring with emoji
+        const trendDisplay = document.getElementById('trend-display');
+        let trendEmoji = '🟡';
+        let trendColor = '#ffd700';
         
+        if (data.trend.includes('Bullish')) {
+            trendEmoji = '🟢';
+            trendColor = '#10b981';
+        } else if (data.trend.includes('Bearish')) {
+            trendEmoji = '🔴';
+            trendColor = '#f5576c';
+        }
+        
+        trendDisplay.textContent = `${trendEmoji} ${data.trend}`;
+        trendDisplay.style.color = trendColor;
+        
+        // 5-Day MA with trend arrow
         const movingAvgArray = data.movingAverage;
         const lastMovingAvg = movingAvgArray[movingAvgArray.length - 1];
-        document.getElementById('moving-avg-display').textContent = `$${lastMovingAvg.toFixed(2)}`;
+        const prevMovingAvg = movingAvgArray[movingAvgArray.length - 2];
+        
+        let maArrow = '';
+        if (lastMovingAvg > prevMovingAvg) {
+            maArrow = ' ▲';
+        } else if (lastMovingAvg < prevMovingAvg) {
+            maArrow = ' ▼';
+        } else {
+            maArrow = ' ━';
+        }
+        
+        document.getElementById('moving-avg-display').textContent = `$${lastMovingAvg.toFixed(2)}${maArrow}`;
+        
+        // Total growth display
+        const totalGrowthElement = document.getElementById('total-growth');
+        totalGrowthElement.textContent = `+${totalGrowthPercent.toFixed(2)}%`;
+        totalGrowthElement.style.color = totalGrowthPercent > 0 ? '#10b981' : '#f5576c';
         
         // Display detailed analysis
         const analysisResult = document.getElementById('analysis-result');
@@ -39,11 +72,15 @@ analyzeBtn.addEventListener('click', async () => {
             </div>
             <div class="result-item">
                 <span class="result-label">Market Trend:</span>
-                <span class="result-value">${trendEmoji} ${data.trend}</span>
+                <span class="result-value" style="color: ${trendColor}">${trendEmoji} ${data.trend}</span>
             </div>
             <div class="result-item">
                 <span class="result-label">5-Day Moving Average:</span>
-                <span class="result-value">$${lastMovingAvg.toFixed(2)}</span>
+                <span class="result-value">$${lastMovingAvg.toFixed(2)}${maArrow}</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Total Growth:</span>
+                <span class="result-value" style="color: ${totalGrowthPercent > 0 ? '#10b981' : '#f5576c'}">+${totalGrowthPercent.toFixed(2)}%</span>
             </div>
             <div class="result-item">
                 <span class="result-label">Stock Span (Last 5):</span>
