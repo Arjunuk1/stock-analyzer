@@ -19,8 +19,8 @@ analyzeBtn.addEventListener('click', async () => {
         const totalGrowthPercent = ((data.highestPrice - data.lowestPrice) / data.lowestPrice) * 100;
         
         // Update stat cards
-        document.getElementById('highest-price').textContent = `$${data.highestPrice.toFixed(2)}`;
-        document.getElementById('lowest-price').textContent = `$${data.lowestPrice.toFixed(2)}`;
+        document.getElementById('highest-price').textContent = `₹${data.highestPrice.toFixed(2)}`;
+        document.getElementById('lowest-price').textContent = `₹${data.lowestPrice.toFixed(2)}`;
         
         // Dynamic trend coloring with emoji
         const trendDisplay = document.getElementById('trend-display');
@@ -52,7 +52,7 @@ analyzeBtn.addEventListener('click', async () => {
             maArrow = ' ━';
         }
         
-        document.getElementById('moving-avg-display').textContent = `$${lastMovingAvg.toFixed(2)}${maArrow}`;
+        document.getElementById('moving-avg-display').textContent = `₹${lastMovingAvg.toFixed(2)}${maArrow}`;
         
         // Total growth display
         const totalGrowthElement = document.getElementById('total-growth');
@@ -64,11 +64,11 @@ analyzeBtn.addEventListener('click', async () => {
         analysisResult.innerHTML = `
             <div class="result-item">
                 <span class="result-label">Highest Price:</span>
-                <span class="result-value">$${data.highestPrice.toFixed(2)}</span>
+                <span class="result-value">₹${data.highestPrice.toFixed(2)}</span>
             </div>
             <div class="result-item">
                 <span class="result-label">Lowest Price:</span>
-                <span class="result-value">$${data.lowestPrice.toFixed(2)}</span>
+                <span class="result-value">₹${data.lowestPrice.toFixed(2)}</span>
             </div>
             <div class="result-item">
                 <span class="result-label">Market Trend:</span>
@@ -76,7 +76,7 @@ analyzeBtn.addEventListener('click', async () => {
             </div>
             <div class="result-item">
                 <span class="result-label">5-Day Moving Average:</span>
-                <span class="result-value">$${lastMovingAvg.toFixed(2)}${maArrow}</span>
+                <span class="result-value">₹${lastMovingAvg.toFixed(2)}${maArrow}</span>
             </div>
             <div class="result-item">
                 <span class="result-label">Total Growth:</span>
@@ -131,7 +131,7 @@ searchBtn.addEventListener('click', async () => {
                 </div>
                 <div class="result-item">
                     <span class="result-label">Price:</span>
-                    <span class="result-value">$${data.close.toFixed(2)}</span>
+                    <span class="result-value">₹${data.close.toFixed(2)}</span>
                 </div>
             `;
         }
@@ -193,7 +193,7 @@ loadDataBtn.addEventListener('click', async () => {
                 <tr>
                     <td>${index + 1}</td>
                     <td>${item.date}</td>
-                    <td>$${item.close.toFixed(2)}</td>
+                    <td>₹${item.close.toFixed(2)}</td>
                     <td>${change}</td>
                 </tr>
             `;
