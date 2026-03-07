@@ -154,7 +154,7 @@ Unlike basic CRUD projects, this application:
 
 ---
 
-## 🚀 How to Run Locally
+## 🚀 How to Run the website Locally
 
 ```bash
 git clone https://github.com/Arjunuk1/stock-analyzer.git
