@@ -1,16 +1,15 @@
 {
-  "name": "stock-analyzer",
+  "name": "student-crud-app",
   "version": "1.0.0",
-  "description": "A Node.js-based web application that analyzes historical stock data using DSA algorithms like Stock Span, Moving Average, Sorting, and Binary Search.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
