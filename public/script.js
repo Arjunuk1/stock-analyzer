@@ -1,242 +1,120 @@
-// DOM Elements
-const analyzeBtn = document.getElementById('analyzeBtn');
-const searchBtn = document.getElementById('searchBtn');
-const loadDataBtn = document.getElementById('loadDataBtn');
-const dateInput = document.getElementById('dateInput');
+const analyzeBtn = document.getElementById("analyzeBtn");
+const searchBtn = document.getElementById("searchBtn");
+const loadDataBtn = document.getElementById("loadDataBtn");
+const dateInput = document.getElementById("dateInput");
 
-// Analysis Function
-analyzeBtn.addEventListener('click', async () => {
-    try {
-        showLoading(analyzeBtn, 'Analyzing...');
-        
-        const response = await fetch('/api/analysis');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        
-        // Calculate total growth
-        const totalGrowthPercent = ((data.highestPrice - data.lowestPrice) / data.lowestPrice) * 100;
-        
-        // Update stat cards
-        document.getElementById('highest-price').textContent = `₹${data.highestPrice.toFixed(2)}`;
-        document.getElementById('lowest-price').textContent = `₹${data.lowestPrice.toFixed(2)}`;
-        
-        // Dynamic trend coloring with emoji
-        const trendDisplay = document.getElementById('trend-display');
-        let trendEmoji = '🟡';
-        let trendColor = '#ffd700';
-        
-        if (data.trend.includes('Bullish')) {
-            trendEmoji = '🟢';
-            trendColor = '#10b981';
-        } else if (data.trend.includes('Bearish')) {
-            trendEmoji = '🔴';
-            trendColor = '#f5576c';
-        }
-        
-        trendDisplay.textContent = `${trendEmoji} ${data.trend}`;
-        trendDisplay.style.color = trendColor;
-        
-        // 5-Day MA with trend arrow
-        const movingAvgArray = data.movingAverage;
-        const lastMovingAvg = movingAvgArray[movingAvgArray.length - 1];
-        const prevMovingAvg = movingAvgArray[movingAvgArray.length - 2];
-        
-        let maArrow = '';
-        if (lastMovingAvg > prevMovingAvg) {
-            maArrow = ' ▲';
-        } else if (lastMovingAvg < prevMovingAvg) {
-            maArrow = ' ▼';
-        } else {
-            maArrow = ' ━';
-        }
-        
-        document.getElementById('moving-avg-display').textContent = `₹${lastMovingAvg.toFixed(2)}${maArrow}`;
-        
-        // Total growth display
-        const totalGrowthElement = document.getElementById('total-growth');
-        totalGrowthElement.textContent = `+${totalGrowthPercent.toFixed(2)}%`;
-        totalGrowthElement.style.color = totalGrowthPercent > 0 ? '#10b981' : '#f5576c';
-        
-        // Display detailed analysis
-        const analysisResult = document.getElementById('analysis-result');
-        analysisResult.innerHTML = `
-            <div class="result-item">
-                <span class="result-label">Highest Price:</span>
-                <span class="result-value">₹${data.highestPrice.toFixed(2)}</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Lowest Price:</span>
-                <span class="result-value">₹${data.lowestPrice.toFixed(2)}</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Market Trend:</span>
-                <span class="result-value" style="color: ${trendColor}">${trendEmoji} ${data.trend}</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">5-Day Moving Average:</span>
-                <span class="result-value">₹${lastMovingAvg.toFixed(2)}${maArrow}</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Total Growth:</span>
-                <span class="result-value" style="color: ${totalGrowthPercent > 0 ? '#10b981' : '#f5576c'}">+${totalGrowthPercent.toFixed(2)}%</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Stock Span (Last 5):</span>
-                <span class="result-value">${data.stockSpan.slice(-5).join(', ')}</span>
-            </div>
-        `;
-        analysisResult.classList.add('active');
-        
-        hideLoading(analyzeBtn, 'Run Analysis');
-    } catch (error) {
-        console.error('Error:', error);
-        showError(document.getElementById('analysis-result'), 'Failed to fetch analysis data');
-        hideLoading(analyzeBtn, 'Run Analysis');
-    }
-});
+const analysisResult = document.getElementById("analysisResult");
+const searchResult = document.getElementById("searchResult");
+const dataTable = document.getElementById("dataTable");
+const apiLog = document.getElementById("apiLog");
 
-// Search by Date Function
-searchBtn.addEventListener('click', async () => {
-    const date = dateInput.value;
-    
-    if (!date) {
-        showError(document.getElementById('search-result'), 'Please select a date');
-        return;
-    }
-    
-    try {
-        showLoading(searchBtn, 'Searching...');
-        
-        const response = await fetch(`/api/search?date=${date}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        
-        const searchResult = document.getElementById('search-result');
-        
-        if (data.message) {
-            searchResult.innerHTML = `
-                <div class="result-item">
-                    <span class="result-value">⚠️ ${data.message}</span>
-                </div>
-            `;
-        } else {
-            searchResult.innerHTML = `
-                <div class="result-item">
-                    <span class="result-label">Date:</span>
-                    <span class="result-value">${data.date}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Price:</span>
-                    <span class="result-value">₹${data.close.toFixed(2)}</span>
-                </div>
-            `;
-        }
-        
-        searchResult.classList.add('active');
-        hideLoading(searchBtn, 'Search');
-    } catch (error) {
-        console.error('Error:', error);
-        showError(document.getElementById('search-result'), 'Failed to search date');
-        hideLoading(searchBtn, 'Search');
-    }
-});
-
-// Load All Stock Data
-loadDataBtn.addEventListener('click', async () => {
-    try {
-        showLoading(loadDataBtn, 'Loading...');
-        
-        const response = await fetch('/api/stock');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        
-        const dataTable = document.getElementById('data-table');
-        
-        if (!data || data.length === 0) {
-            dataTable.innerHTML = '<div class="loading">No data available</div>';
-            dataTable.classList.add('active');
-            hideLoading(loadDataBtn, 'Load Data');
-            return;
-        }
-        
-        let tableHTML = `
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Date</th>
-                        <th>Price</th>
-                        <th>Change</th>
-                    </tr>
-                </thead>
-                <tbody>
-        `;
-        
-        data.forEach((item, index) => {
-            let change = '';
-            if (index > 0) {
-                const priceDiff = item.close - data[index - 1].close;
-                const changePercent = ((priceDiff / data[index - 1].close) * 100).toFixed(2);
-                const arrow = priceDiff > 0 ? '🟢 ▲' : priceDiff < 0 ? '🔴 ▼' : '⚪ ━';
-                change = `${arrow} ${Math.abs(changePercent)}%`;
-            } else {
-                change = '━';
-            }
-            
-            tableHTML += `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${item.date}</td>
-                    <td>₹${item.close.toFixed(2)}</td>
-                    <td>${change}</td>
-                </tr>
-            `;
-        });
-        
-        tableHTML += `
-                </tbody>
-            </table>
-        `;
-        
-        dataTable.innerHTML = tableHTML;
-        dataTable.classList.add('active');
-        hideLoading(loadDataBtn, 'Load Data');
-    } catch (error) {
-        console.error('Error:', error);
-        showError(document.getElementById('data-table'), 'Failed to load stock data');
-        hideLoading(loadDataBtn, 'Load Data');
-    }
-});
-
-// Helper Functions
-function showLoading(button, text) {
-    button.disabled = true;
-    button.style.opacity = '0.6';
-    button.querySelector('.btn-text').textContent = text;
+function setLog(title, payload) {
+  apiLog.textContent = `${title}\n\n${JSON.stringify(payload, null, 2)}`;
 }
 
-function hideLoading(button, text) {
-    button.disabled = false;
-    button.style.opacity = '1';
-    button.querySelector('.btn-text').textContent = text;
-}
+analyzeBtn.addEventListener("click", async () => {
+  try {
+    const response = await fetch("/api/analysis");
+    const data = await response.json();
 
-function showError(element, message) {
-    element.innerHTML = `
-        <div class="result-item">
-            <span class="result-value" style="color: #f5576c;">❌ ${message}</span>
-        </div>
+    if (!response.ok) {
+      analysisResult.textContent = data.message || "Failed to run analysis";
+      setLog("GET /api/analysis", data);
+      return;
+    }
+
+    const movingAvg = data.movingAverage.length
+      ? data.movingAverage[data.movingAverage.length - 1]
+      : null;
+
+    analysisResult.innerHTML = `
+      <div>Highest Price: Rs ${data.highestPrice.toFixed(2)}</div>
+      <div>Lowest Price: Rs ${data.lowestPrice.toFixed(2)}</div>
+      <div>Moving Average (5 Days): ${movingAvg !== null ? `Rs ${movingAvg.toFixed(2)}` : "N/A"}</div>
+      <div>Trend: ${data.trend}</div>
+      <div>Stock Span: [${data.stockSpan.slice(0, 12).join(", ")}${data.stockSpan.length > 12 ? ", ..." : ""}]</div>
     `;
-    element.classList.add('active');
-}
 
-// Auto-load analysis on page load
-window.addEventListener('load', () => {
-    analyzeBtn.click();
+    setLog("GET /api/analysis", data);
+  } catch (error) {
+    analysisResult.textContent = "Request failed";
+    setLog("GET /api/analysis", { error: error.message });
+  }
+});
+
+searchBtn.addEventListener("click", async () => {
+  const date = dateInput.value;
+
+  if (!date) {
+    searchResult.textContent = "Please select a date";
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/search?date=${encodeURIComponent(date)}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      searchResult.textContent = data.message || "Date not found";
+      setLog(`GET /api/search?date=${date}`, data);
+      return;
+    }
+
+    searchResult.textContent = `Stock Price on ${data.date}: Rs ${Number(data.close).toFixed(2)}`;
+    setLog(`GET /api/search?date=${date}`, data);
+  } catch (error) {
+    searchResult.textContent = "Request failed";
+    setLog(`GET /api/search?date=${date}`, { error: error.message });
+  }
+});
+
+loadDataBtn.addEventListener("click", async () => {
+  try {
+    const response = await fetch("/api/stock");
+    const data = await response.json();
+
+    if (!response.ok) {
+      dataTable.textContent = data.message || "Failed to load data";
+      setLog("GET /api/stock", data);
+      return;
+    }
+
+    if (!Array.isArray(data) || data.length === 0) {
+      dataTable.textContent = "No historical data found";
+      setLog("GET /api/stock", data);
+      return;
+    }
+
+    const rows = data.slice(0, 50).map(item => `
+      <tr>
+        <td>${item.date}</td>
+        <td>${item.open}</td>
+        <td>${item.high}</td>
+        <td>${item.low}</td>
+        <td>${item.close}</td>
+        <td>${item.volume}</td>
+      </tr>
+    `).join("");
+
+    dataTable.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Volume</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+
+    setLog("GET /api/stock", data.slice(0, 5));
+  } catch (error) {
+    dataTable.textContent = "Request failed";
+    setLog("GET /api/stock", { error: error.message });
+  }
 });
