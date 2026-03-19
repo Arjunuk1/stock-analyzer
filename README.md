@@ -138,8 +138,6 @@ This project demonstrates:
 - Efficient algorithm implementation
 - REST API architecture
 - Client–Server communication
-- Time complexity optimization
-
 ---
 
 ## 🔥 Why This Project Is Strong
