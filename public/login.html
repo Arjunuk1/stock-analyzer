@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Stock Analyzer</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="app-bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <nav class="navbar elevated">
+    <div class="nav-brand">Stock Analyzer</div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/stocks.html">Stocks</a></li>
+      <li><a href="/profile.html">Profile</a></li>
+      <li><a href="/login.html">Login</a></li>
+      <li><a href="/signup.html">Signup</a></li>
+    </ul>
+  </nav>
+
+  <main class="auth-main card reveal">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label>Email</label>
+      <input type="email" name="email" required />
+      <label>Password</label>
+      <input type="password" name="password" required />
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <p class="muted">OR</p>
+    <button type="button" id="googleLogin" class="btn btn-outline">Login with Google</button>
+    <div id="loginError" class="error-msg"></div>
+  </main>
+
+  <script src="/js/login.js"></script>
+</body>
+</html>

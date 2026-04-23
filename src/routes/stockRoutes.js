@@ -1,10 +1,10 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const { getStocks, addStock, searchByDate, runAnalysis } = require('../controllers/stockController');
 
-const stockController = require("../controllers/stockController");
-
-router.get("/stock", stockController.getStockData);
-router.get("/analysis", stockController.getAnalysis);
-router.get("/search", stockController.searchByDate);
+router.get('/stocks', getStocks);
+router.post('/stocks', addStock);
+router.get('/stocks/search', searchByDate);
+router.get('/stocks/analysis', runAnalysis);
 
 module.exports = router;

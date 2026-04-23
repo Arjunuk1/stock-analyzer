@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stocks | Stock Analyzer</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="app-bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <nav class="navbar elevated">
+    <div class="nav-brand">Stock Analyzer</div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/stocks.html">Stocks</a></li>
+      <li><a href="/profile.html">Profile</a></li>
+      <li><a href="/login.html">Login</a></li>
+      <li><a href="/signup.html">Signup</a></li>
+    </ul>
+  </nav>
+
+  <main class="stocks-main reveal">
+    <section class="card panel">
+      <h2>Search Stock By Date</h2>
+      <div class="row">
+        <input id="stockDateInput" type="date">
+        <button id="stockDateSearchBtn" class="btn">Search</button>
+      </div>
+      <div id="stockMessage" class="result-box"></div>
+    </section>
+
+    <section class="card panel wide">
+      <h2>Historical Stock Data (CSV)</h2>
+      <button id="loadStocksBtn" class="btn btn-outline">Refresh</button>
+      <div id="stocksList" class="table-wrap"></div>
+    </section>
+  </main>
+
+  <script src="/js/stocks.js"></script>
+</body>
+</html>

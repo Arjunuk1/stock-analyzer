@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Stock Analyzer</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="app-bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <nav class="navbar elevated">
+    <div class="nav-brand">Stock Analyzer</div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/stocks.html">Stocks</a></li>
+      <li><a href="/profile.html">Profile</a></li>
+      <li><a href="/login.html">Login</a></li>
+      <li><a href="/signup.html">Signup</a></li>
+    </ul>
+  </nav>
+
+  <main class="dashboard-main pro-dashboard">
+    <section class="card panel reveal">
+      <h2>User Snapshot</h2>
+      <div id="userInfo">Loading profile...</div>
+    </section>
+
+    <section class="card panel reveal delay-1">
+      <h2>Search by Date</h2>
+      <div class="row">
+        <input id="dateInput" type="date">
+        <button id="searchDateBtn" class="btn">Search</button>
+      </div>
+      <div id="searchResult" class="result-box"></div>
+    </section>
+
+    <section class="card panel reveal delay-2">
+      <h2>Run Analysis</h2>
+      <p class="muted-left">Calculates summary from the complete CSV file.</p>
+      <button id="runAnalysisBtn" class="btn">Run Analysis</button>
+      <div id="analysisResult" class="result-box"></div>
+    </section>
+
+    <section class="card panel reveal delay-3 wide">
+      <h2>Historical Stock Data</h2>
+      <button id="loadStocksBtn" class="btn">Load Historical Data</button>
+      <div id="dataTable" class="table-wrap"></div>
+    </section>
+  </main>
+
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
