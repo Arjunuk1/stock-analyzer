@@ -11,7 +11,7 @@ async function loadProfile() {
 
 	try {
 		const response = await fetch('/profile', {
-			headers: { Authorization: token }
+			headers: { Authorization: `Bearer ${token}` }
 		});
 
 		const data = await response.json();
