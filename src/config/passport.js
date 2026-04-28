@@ -16,6 +16,7 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
       },
       (accessToken, refreshToken, profile, done) => {
         const userData = {
+          id: profile.id,
           name: profile.displayName || 'Google User',
           email: profile.emails && profile.emails[0] ? profile.emails[0].value : '',
           profilePic: profile.photos && profile.photos[0] ? profile.photos[0].value : ''
