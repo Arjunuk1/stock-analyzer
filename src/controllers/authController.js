@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const { signToken } = require('../config/jwt');
 
 exports.signup = async (req, res) => {
     try {
@@ -35,6 +35,7 @@ exports.signup = async (req, res) => {
             }
         });
     } catch (error) {
+        console.error('Signup error:', error.message || error);
         return res.status(500).json({ message: 'Signup failed' });
     }
 };
@@ -57,13 +58,14 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '1h' });
+        const token = signToken({ id: user._id }, { expiresIn: '1h' });
 
         return res.json({
             message: 'Login successful',
             token
         });
     } catch (error) {
+        console.error('Login error:', error.message || error);
         return res.status(500).json({ message: 'Login failed' });
     }
 };
@@ -82,17 +84,24 @@ exports.googleLogin = async (req, res) => {
             user = await User.create({
                 name: name || 'Google User',
                 email,
-                password: ''
+                password: null,
+                authProvider: 'google',
+                googleId: req.user.id || null
             });
+        } else if (!user.authProvider || user.authProvider === 'local') {
+            user.authProvider = 'google';
+            user.googleId = req.user.id || user.googleId || null;
+            await user.save();
         }
 
-        const token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '1h' });
+        const token = signToken({ id: user._id }, { expiresIn: '1h' });
 
         return res.json({
             message: 'Google login successful',
             token
         });
     } catch (error) {
+        console.error('Google login error:', error.message || error);
         return res.status(500).json({ message: 'Google login failed' });
     }
 };
@@ -110,17 +119,22 @@ exports.googleCallback = async (req, res) => {
             user = await User.create({
                 name,
                 email,
-                password: '',
+                password: null,
+                authProvider: 'google',
+                googleId: req.user.id || null,
                 profilePic: profilePic || ''
             });
         } else if (!user.profilePic && profilePic) {
             user.profilePic = profilePic;
+            user.authProvider = 'google';
+            user.googleId = req.user.id || user.googleId || null;
             await user.save();
         }
 
-        const token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '1h' });
+        const token = signToken({ id: user._id }, { expiresIn: '1h' });
         return res.redirect(`/login.html?token=${encodeURIComponent(token)}`);
     } catch (error) {
+        console.error('Google callback error:', error.message || error);
         return res.redirect('/login.html?error=google_login_failed');
     }
 };
@@ -135,6 +149,7 @@ exports.getProfile = async (req, res) => {
 
         return res.json(user);
     } catch (error) {
+        console.error('Profile error:', error.message || error);
         return res.status(500).json({ message: 'Failed to fetch profile' });
     }
 };
