@@ -41,7 +41,7 @@ function renderStocks(stocks) {
 async function loadStocks() {
   stocksList.textContent = 'Loading...';
   try {
-    const response = await fetch('/stocks');
+    const response = await fetch('/stocks', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
     const data = await response.json();
 
     if (!response.ok) {
