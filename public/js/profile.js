@@ -24,11 +24,16 @@ async function loadProfile() {
 		profileInfo.innerHTML = `
 			<p><strong>Name:</strong> ${data.name}</p>
 			<p><strong>Email:</strong> ${data.email}</p>
-			${data.profilePic ? `<img src="${data.profilePic}" alt="Profile" width="120" />` : '<p>No profile image</p>'}
+			${data.profilePic ? `<img src="${data.profilePic}" alt="Profile" width="120" style="margin-top:10px;border-radius:8px;"/>` : '<p>No profile image</p>'}
 		`;
 	} catch (error) {
 		profileError.textContent = 'Request failed';
 	}
 }
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+	localStorage.removeItem('token');
+	window.location.href = '/'; // Redirects to home, where the auth overlay will trigger
+});
 
 loadProfile();
