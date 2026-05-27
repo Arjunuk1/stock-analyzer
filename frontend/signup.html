@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup | Stock Analyzer</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="app-bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <nav class="navbar elevated">
+    <div class="nav-brand">Stock Analyzer</div>
+    <ul class="nav-links">
+      <li><a href="./">Home</a></li>
+      <li><a href="./dashboard.html">Dashboard</a></li>
+      <li><a href="./stocks.html">Stocks</a></li>
+      <li><a href="./profile.html">Profile</a></li>
+      <li><a href="./login.html">Login</a></li>
+      <li><a href="./signup.html">Signup</a></li>
+    </ul>
+  </nav>
+
+  <main class="auth-main card reveal">
+    <h2>Signup</h2>
+    <form autocomplete="off" id="signupForm" enctype="multipart/form-data">
+      <label>Name</label>
+      <input type="text" name="name" required />
+      <label>Email</label>
+      <input type="email" autocomplete="off" name="email" required />
+      <label>Password</label>
+      <input type="password" autocomplete="new-password" name="password" required />
+      <label>Profile Picture</label>
+      <input type="file" name="profilePic" accept="image/*" />
+      <button type="submit" class="btn">Signup</button>
+    </form>
+    <div id="signupError" class="error-msg"></div>
+  </main>
+
+  <script src="./js/signup.js"></script>
+</body>
+</html>

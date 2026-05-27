@@ -1,0 +1,92 @@
+[
+  {
+    "_id": "69f0469dedf0dd0f437ca057",
+    "name": "Test",
+    "email": "test1777354397310@ex.com",
+    "password": "pass",
+    "authProvider": "local",
+    "profilePic": "pic",
+    "googleId": null,
+    "__v": 0
+  },
+  {
+    "_id": "69f04835564872738266658e",
+    "name": "Copilot Trace",
+    "email": "copilot-trace-1760000006@example.com",
+    "password": "$2b$10$c1NuqFg7cP.MkLc/mtY5De8J9x26cdiOLbhqnJ6RUbE2oPaEuScDW",
+    "authProvider": "local",
+    "profilePic": "",
+    "googleId": null,
+    "__v": 0
+  },
+  {
+    "_id": "69f0498a564872738266658f",
+    "name": "TestUser",
+    "email": "test1777355145@test.com",
+    "password": "$2b$10$K5Vn.XY4Lk/MBl6lLjGEOegGUETF0nX/Z/rfyDPN5dCDC/M2iPVYa",
+    "authProvider": "local",
+    "profilePic": "",
+    "googleId": null,
+    "__v": 0
+  },
+  {
+    "_id": "69f049915648727382666590",
+    "name": "TestUser",
+    "email": "test1777355153@test.com",
+    "password": "$2b$10$xNLH5xcUXxszXLnoeDY1FOgugHoNcIpGEmdGN3rztCve7Kz4KyNK.",
+    "authProvider": "local",
+    "profilePic": "",
+    "googleId": null,
+    "__v": 0
+  },
+  {
+    "_id": "69f049955648727382666591",
+    "name": "TestUser",
+    "email": "test1777355157@test.com",
+    "password": "$2b$10$C/8vu2Ecrl0XfiWI1wXkx.Sg9EmCWGYO2Gyw0yXarfdBZRzszZwuS",
+    "authProvider": "local",
+    "profilePic": "",
+    "googleId": null,
+    "__v": 0
+  },
+  {
+    "_id": "69f04a995648727382666592",
+    "name": "ananya",
+    "email": "ananya@gmail.com",
+    "password": "$2b$10$eL6ZJ7s9bFu78Lm0q.T93eybs9E9w0bynI2sMfyV2Iv7uoz931aSm",
+    "authProvider": "local",
+    "profilePic": "/uploads/12f368760be8048512ab42bb160e7d19",
+    "googleId": null,
+    "__v": 0
+  },
+  {
+    "_id": "69f04aea5648727382666593",
+    "name": "Arjun",
+    "email": "arjun251898@gmail.com",
+    "password": "$2b$10$PSwE/.ijuttxeEtQFmJhH.XIelBJphzS3IDRvDwCuHWyjXBGhpTlG",
+    "authProvider": "local",
+    "profilePic": "/uploads/7d8884bd5fe45fe4cd709d40fc5a7baf",
+    "googleId": null,
+    "__v": 0
+  },
+  {
+    "_id": "69f05a975648727382666594",
+    "name": "Arjun",
+    "email": "arjun@gmail.com",
+    "password": "$2b$10$tkoFu9.3TrmxZDbxcaawZegFZ6eG0SDzQ1q2U3UZ7r4LkkjGeV2x.",
+    "authProvider": "local",
+    "profilePic": "/uploads/20de5bebe96089a44877dbfdcf0bb820",
+    "googleId": null,
+    "__v": 0
+  },
+  {
+    "_id": "69f0859be9a7a5defcb72219",
+    "name": "Amit",
+    "email": "amit@gmail.com",
+    "password": "$2b$10$RSYF4xoEEmIuFJnJUpHoLeud6s2g.f3jZ9rVDn.AF2mb0g1dh6CCa",
+    "authProvider": "local",
+    "profilePic": "/uploads/c8221124ab59bb4478edca0954f2eeb6",
+    "googleId": null,
+    "__v": 0
+  }
+]
